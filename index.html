@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS tutorial - Egghead - Pierangelo's version</title>
+    <link rel="stylesheet" href="css/foundation.css"/>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+<body ng-app="">
+    <div ng-controller="HeaderController">
+
+
+    </div>
+
+    <div ng-controller="CartController">
+        <div ng-repeat="item in items">
+            <span>{{ item.title }}</span>
+            <input ng-model="item.quantity"/>
+            <span>{{ item.price | currency }}</span>
+            <span>{{ item.price * item.quantity | currency }}</span>
+        </div>
+
+        <div>Total: {{ totalCart() | currency }}</div>
+        <div>Discount: {{ bill.discount | currency }}</div>
+        <div>Subtotal: {{ subtotal() | currency }}</div>
+    </div>
+
+</body>
+</html>

@@ -12,7 +12,7 @@ function HeaderController($scope) {
 
 function CartController($scope)
 {
-    $scope.bill = {discount:0};
+    $scope.bill = {};
 
     $scope.items = [
         {title:'Paint Pots', quantity: 8, price: 3.95},
@@ -20,24 +20,16 @@ function CartController($scope)
         {title:'Pebbles', quantity: 5, price: 6.95}
     ];
 
-    $scope.totalCart = function() {
-        console.log('called totalCart()')
+    $scope.calculateTotals = function() {
         var total = 0;
         for (var i = 0, len = $scope.items.length; i < len; i++)
         {
             total = total + $scope.items[i].price * $scope.items[i].quantity;
         }
-
-        return total;
-    }
-
-    $scope.subtotal = function() {
-        return $scope.totalCart() - $scope.bill.discount;
+        $scope.bill.totalCart = total;
+        $scope.bill.discount = total > 100 ? 10 : 0;
+        $scope.bill.subtotal = $scope.bill.totalCart - $scope.bill.discount;
     };
 
-    function calculateDiscount(newValue, oldValue, scope) {
-        $scope.bill.discount = newValue > 100 ? 10 : 0;
-    }
-
-    $scope.$watch($scope.totalCart, calculateDiscount);
+    $scope.$watch('items', $scope.calculateTotals, true);
 }
